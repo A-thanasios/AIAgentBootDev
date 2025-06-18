@@ -10,7 +10,7 @@ working_directory = "./calculator"
 
 def call_function(function_call, verbose=False):
     if verbose:
-        print(f"Calling function: {function_call.name}({function_call.args})")
+        print(f"Calling function: {function_call.name} {working_directory}, {function_call.args})")
     else:
         print(f" - Calling function: {function_call.name}")
 
@@ -18,16 +18,16 @@ def call_function(function_call, verbose=False):
     match function_call.name:
 
         case "get_files_info":
-            function_result = get_files_info(function_call.args, working_directory)
+            function_result = get_files_info(working_directory, function_call.args['file_path'])
         
         case "get_file_content":
-            function_result = get_file_content(function_call.args, working_directory)
+            function_result = get_file_content(working_directory, function_call.args['file_path'])
         
         case "run_python_file":
-            function_result = run_python_file(function_call.args, working_directory)
+            function_result = run_python_file(working_directory, function_call.args['file_path'])
         
         case "write_file":
-            function_result = write_file(function_call.args, working_directory)
+            function_result = write_file(working_directory, function_call.args['file_path'], function_call.args['content'])
         
         case _:
             return types.Content(
